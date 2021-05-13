@@ -7,6 +7,7 @@ import com.github.javafaker.Faker;
 import com.google.common.collect.Lists;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -20,6 +21,14 @@ public class RepositoriesController
   @ResponseBody
   public List<Repository> getRepositories() {
     return generateRandomRepositories();
+  }
+
+  @GetMapping(END_POINT_V1 + "/name/{id}")
+  @ResponseBody
+  public String getNameById(@PathVariable final int id) {
+    List<Repository> repositories = generateRandomRepositories();
+
+    return repositories.get(id).getName();
   }
 
   private List<Repository> generateRandomRepositories() {
